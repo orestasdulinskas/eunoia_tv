@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Random Content Display</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <img id="contentImage" src="" alt="Random Content">
+    </div>
+    <script>
+        // Function to fetch a new image URL and update the image source
+        function fetchAndUpdateImage() {
+            fetch('http://127.0.0.1:5000/random-content')
+                .then(response => response.json())  // Parse the JSON response
+                .then(data => {
+                    // Update the image src attribute with the new URL
+                    const contentImage = document.getElementById('contentImage');
+                    contentImage.src = data.url;
+                    // Set the background image style for the blurred effect
+                    document.querySelector('.container').style.backgroundImage = `url(${data.url})`;
+                })
+                .catch(error => console.error('Error fetching the image:', error));
+        }
+        // Call the function every 10 seconds
+        setInterval(fetchAndUpdateImage, 10000); // Adjust time as needed
+    </script>
+</body>
+</html>
