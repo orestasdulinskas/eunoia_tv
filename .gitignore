@@ -1,12 +1,12 @@
 # Ignore environment folder
 eunoia
 
-# Ignore API key file
-api_keys.txt
-
 # Ignore pytest cache
 .pytest_cache/
 
 # Ignore Python bytecode
 __pycache__/
 *.py[cod]
+
+# Ignore environment secret file
+.env

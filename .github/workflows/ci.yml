@@ -22,6 +22,8 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run backend tests
+      env:
+            TUMBLR_API_KEY: ${{ secrets.TUMBLR_API_KEY }}
       run: |
         source eunoia/bin/activate
         pytest backend/test_app.py

@@ -3,13 +3,15 @@ from flask_cors import CORS
 import re
 import requests
 import random
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
 
 # Your Tumblr API key
-with open('../api_keys.txt', 'r') as f:
-    API_KEY = f.read()
+load_dotenv()
+API_KEY = os.getenv('TUMBLR_API_KEY')
 
 @app.route('/random-content')
 def random_content():
