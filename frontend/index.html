@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <img id="contentImage" src="" alt="Random Content">
+        <div id="contentImage" src="" alt="Random Content">
     </div>
     <script>
         // Function to fetch a new image URL and update the image source
@@ -18,14 +18,15 @@
                 .then(data => {
                     // Update the image src attribute with the new URL
                     const contentImage = document.getElementById('contentImage');
-                    contentImage.src = data.url;
+                    contentImage.style.backgroundImage = `url(${data.url})`;
+                    //contentImage.src = data.url;
                     // Set the background image style for the blurred effect
                     document.querySelector('.container').style.backgroundImage = `url(${data.url})`;
                 })
                 .catch(error => console.error('Error fetching the image:', error));
         }
         // Call the function every 10 seconds
-        setInterval(fetchAndUpdateImage, 18000); // Adjust time as needed
+        setInterval(fetchAndUpdateImage, 10000); // Adjust time as needed
     </script>
 </body>
 </html>
