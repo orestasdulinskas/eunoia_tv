@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
 
 # Your Tumblr API key
-with open('./api_keys.txt', 'r') as f:
+with open('../api_keys.txt', 'r') as f:
     API_KEY = f.read()
 
 @app.route('/random-content')
