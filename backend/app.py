@@ -6,22 +6,23 @@ import random
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
 
-api = 0
-
-with open('./api_keys.txt', 'r') as f:
-    apis = [line.strip() for line in f]
-
-with open('./topics.txt', 'r') as f:
-    topics = [line.strip() for line in f]
+# Your Tumblr API key
+API_KEY = 'fyJYc9OHmlh9Iyb271bzkFA9cGEUrcoB6FmkClVTgejQCMshfH'
 
 @app.route('/random-content')
 def random_content():
-    global api
-    if api < len(apis)-1: api += 1
-    else:   api = 0
-    search_endpoint = f'https://api.giphy.com/v1/gifs/search?api_key={apis[api]}&q={random.choice(topics)}&limit=5'
-    response = requests.get(search_endpoint)
+    # Tumblr blog URL
+    blog_url = 'legacy-tv.tumblr.com'
+    # Make a request to the Tumblr API to get posts
+    response = requests.get(f'https://api.tumblr.com/v2/blog/{blog_url}/posts?api_key={API_KEY}')
+    # Parse the JSON response
     data = response.json()
-    return jsonify({'url': data['data'][random.randint(0, 4)]['images']['original']['url']})
+    # Extract post URLs (assuming they are images for simplicity)
+    post_urls = [re.findall(r'src="([^"]+)"',post['body']) for post in data['response']['posts']]
+    # Choose a random post URL
+    random_url = random.choice(post_urls)
+    # Return the random post URL
+    return jsonify({'url': random_url})
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <div id="contentImage" src="" alt="Random Content">
+        <img id="contentImage" src="" alt="Random Content">
     </div>
     <script>
         // Function to fetch a new image URL and update the image source
@@ -18,7 +18,7 @@
                 .then(data => {
                     // Update the image src attribute with the new URL
                     const contentImage = document.getElementById('contentImage');
-                    contentImage.style.backgroundImage = `url(${data.url})`;
+                    contentImage.src = data.url;
                     // Set the background image style for the blurred effect
                     document.querySelector('.container').style.backgroundImage = `url(${data.url})`;
                 })
