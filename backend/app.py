@@ -1,9 +1,10 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_cors import CORS
 import re
 import requests
 import random
 import os
+import json
 from dotenv import load_dotenv
 
 app = Flask(__name__)
@@ -26,7 +27,14 @@ def random_content():
     # Choose a random post URL
     random_url = random.choice(post_urls)
     # Return the random post URL
-    return jsonify({'url': random_url})
+    return {
+        'statusCode': 200,
+        'body': json.dumps({'url': random_url}),
+        'headers': {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
+        }
+    }
 
 if __name__ == '__main__':
     app.run(debug=True)

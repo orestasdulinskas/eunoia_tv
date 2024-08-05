@@ -10,3 +10,6 @@ __pycache__/
 
 # Ignore environment secret file
 .env
+
+# Ignore AWS deployment folder
+my_lambda_function

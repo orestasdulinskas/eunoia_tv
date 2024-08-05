@@ -13,15 +13,17 @@
     <script>
         // Function to fetch a new image URL and update the image source
         function fetchAndUpdateImage() {
+            // fetch('https://ybnhpx7gk3.execute-api.eu-north-1.amazonaws.com/prod/random-content')
             fetch('http://127.0.0.1:5000/random-content')
                 .then(response => response.json())  // Parse the JSON response
                 .then(data => {
                     // Update the image src attribute with the new URL
                     const contentImage = document.getElementById('contentImage');
-                    contentImage.style.backgroundImage = `url(${data.url})`;
+                    const imageUrl = JSON.parse(data.body).url[0];
+                    contentImage.style.backgroundImage = `url(${imageUrl})`;
                     //contentImage.src = data.url;
                     // Set the background image style for the blurred effect
-                    document.querySelector('.container').style.backgroundImage = `url(${data.url})`;
+                    document.querySelector('.container').style.backgroundImage = `url(${imageUrl})`;
                 })
                 .catch(error => console.error('Error fetching the image:', error));
         }
