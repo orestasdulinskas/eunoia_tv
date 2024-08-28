@@ -11,24 +11,39 @@
         <div id="contentImage" src="" alt="Random Content">
     </div>
     <script>
-        // Function to fetch a new image URL and update the image source
-        function fetchAndUpdateImage() {
-            // fetch('https://ybnhpx7gk3.execute-api.eu-north-1.amazonaws.com/prod/random-content')
+        let gifUrls = [];  // To store the list of GIF URLs
+
+        // Function to fetch the list of image URLs from the API
+        function fetchGifUrls() {
             fetch('http://127.0.0.1:5000/random-content')
                 .then(response => response.json())  // Parse the JSON response
                 .then(data => {
-                    // Update the image src attribute with the new URL
-                    const contentImage = document.getElementById('contentImage');
-                    const imageUrl = JSON.parse(data.body).url[0];
-                    contentImage.style.backgroundImage = `url(${imageUrl})`;
-                    //contentImage.src = data.url;
-                    // Set the background image style for the blurred effect
-                    document.querySelector('.container').style.backgroundImage = `url(${imageUrl})`;
+                    gifUrls = JSON.parse(data.body).url.map(urlArray => urlArray[0]); // Extract URLs from nested arrays
+                    updateRandomGif();  // Immediately display a GIF after fetching
                 })
-                .catch(error => console.error('Error fetching the image:', error));
+                .catch(error => console.error('Error fetching the GIF URLs:', error));
         }
-        // Call the function every 10 seconds
-        setInterval(fetchAndUpdateImage, 10000); // Adjust time as needed
+
+        // Function to select a random GIF from the list and display it
+        function updateRandomGif() {
+            if (gifUrls.length > 0) {
+                const randomIndex = Math.floor(Math.random() * gifUrls.length); // Get a random index
+                const randomImageUrl = gifUrls[randomIndex]; // Get the random URL
+
+                // Update the image src attribute with the random URL
+                const contentImage = document.getElementById('contentImage');
+                contentImage.style.backgroundImage = `url(${randomImageUrl})`;
+
+                // Set the background image style for the container
+                document.querySelector('.container').style.backgroundImage = `url(${randomImageUrl})`;
+            }
+        }
+
+        // Fetch the GIF URLs once when the page loads
+        fetchGifUrls();
+
+        // Update the displayed GIF every 5 seconds
+        setInterval(updateRandomGif, 5000); // Adjust time as needed
     </script>
 </body>
 </html>
