@@ -22,3 +22,38 @@ body, html {
   background-size: contain;
   backdrop-filter: blur(5px);
 }
+
+/* Add these keyframes for zoom in and zoom out effects */
+@keyframes zoom-in-out {
+  0% {
+    transform: scale(1); /* No zoom */
+  }
+  50% {
+    transform: scale(1.3); /* Slight zoom in */
+  }
+  100% {
+    transform: scale(1); /* Back to normal */
+  }
+}
+
+.container {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  /* Apply the animation to the container */
+  animation: zoom-in-out 30s ease-in-out infinite; /* Animation lasts 10s and loops infinitely */
+}
+
+.container #contentImage {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  backdrop-filter: blur(5px);
+  z-index: 2;
+}
